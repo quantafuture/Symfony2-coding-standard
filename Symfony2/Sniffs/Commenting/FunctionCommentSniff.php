@@ -91,7 +91,7 @@ class Symfony2_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commen
             // iterate over all return statements of this function,
             // run the check on the first which is not only 'return;'
             while ($returnToken = $phpcsFile->findNext(T_RETURN, $start, $tokens[$stackPtr]['scope_closer'])) {
-                if ($this->isMatchingReturn($tokens, $returnToken)) {
+                if ($this->isMatchingReturn($tokens, $returnToken) && !in_array('PHPCS_T_CLOSURE', $tokens[$returnToken]['conditions'])) {
                     parent::processReturn($phpcsFile, $stackPtr, $commentStart);
                     break;
                 }
